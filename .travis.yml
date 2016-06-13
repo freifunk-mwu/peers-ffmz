@@ -1,0 +1,22 @@
+language: c
+sudo: required
+dist: trusty
+
+before_install:
+ - sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 0x16EF3F64CB201D9C
+ - echo "deb http://repo.universe-factory.net/debian/ sid main" | sudo tee -a /etc/apt/sources.list
+ - sudo apt-get update
+ - sudo apt-get install -y --force-yes fastd
+
+script:
+ - for f in * ; do echo "checking $f..."; fastd --verify-config --config-peer $f || exit 1; done
+ - ./.check.py
+
+notifications:
+  irc:
+    channels:
+      - "irc.hackint.org#ffmwu"
+    on_success: change
+    on_failure: always
+    use_notice: true
+    skip_join: true
