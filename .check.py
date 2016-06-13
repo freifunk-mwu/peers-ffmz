@@ -45,6 +45,9 @@ for fn in root.iterdir():
     if fn.startswith('.'):
         continue
 
+    if fn.endswith('.md'):
+        continue
+
     data = key_from_file(fn)
     if not data:
         error('{fn}: has no (or no valid) key'.format(fn=fn))
