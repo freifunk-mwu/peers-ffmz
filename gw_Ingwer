@@ -1,1 +1,2 @@
 key "9b74e90fd68df749e45718eced65268260872e4cf74369b9bf9e9fb42411efe9";
+remote ipv6 "ingwer.freifunk-mwu.de" port 10056;
