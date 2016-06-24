@@ -2,6 +2,7 @@
 from pathlib import Path
 import re
 import sys
+import os
 
 exit_code = 0
 key_pattern = re.compile('key\s*"(?P<key>[a-f0-9]{64})";');
@@ -36,26 +37,25 @@ def key_from_file(fn):
                 return key_pattern.match(line)
     return False
 
-
+# scan and validate keys
 keys = {}
 root = Path('.')
-for fn in root.iterdir():
-    fn = str(fn)
+for root, dirs, files in os.walk('.'):
+    # modify lists in-place to filter out hidden (dot) files/folders and markdown files
+    files = [f for f in files if not f[0] == '.' and not f.lower().endswith('.md')]
+    dirs[:] = [d for d in dirs if not d[0] == '.']
 
-    if fn.startswith('.'):
-        continue
+    for file in files:
+        fn = os.path.join(root, file)
+        data = key_from_file(fn)
+        if not data:
+            error('{fn}: has no (or no valid) key'.format(fn=fn))
+            exit_code += 1
+            continue
 
-    if fn.endswith('.md'):
-        continue
+        keys.setdefault(data.group('key'), set()).add(fn)
 
-    data = key_from_file(fn)
-    if not data:
-        error('{fn}: has no (or no valid) key'.format(fn=fn))
-        exit_code += 1
-        continue
-
-    keys.setdefault(data.group('key'), set()).add(fn)
-
+# check for duplicate keys
 for k, v in keys.items():
     if len(v) > 1:
         exit_code += 1

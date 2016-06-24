@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-for f in *; do
+find . -type f -not -path '*/\.*' -not -name '*.md' | while read f; do
 	if [ "$f" = *.md ]; then
 		continue
 	fi
