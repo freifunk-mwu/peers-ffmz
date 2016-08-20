@@ -3,8 +3,9 @@ sudo: required
 dist: trusty
 
 before_install:
+ - sudo apt-get install apt-transport-https
  - sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 0x16EF3F64CB201D9C
- - echo "deb http://repo.universe-factory.net/debian/ sid main" | sudo tee -a /etc/apt/sources.list
+ - echo "deb https://repo.universe-factory.net/debian/ sid main" | sudo tee -a /etc/apt/sources.list
  - sudo apt-get update
  - sudo apt-get install -y --force-yes fastd
 
