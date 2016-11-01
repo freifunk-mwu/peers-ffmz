@@ -1,6 +1,6 @@
 language: c
 sudo: required
-dist: trusty
+dist: xenial
 
 before_install:
  - sudo apt-get install apt-transport-https
@@ -21,7 +21,10 @@ notifications:
     on_failure: always
   irc:
     channels:
-      - "irc.hackint.org#ffmwu"
+      - "irc.hackint.org#ffmwu-feed"
+    template:
+      - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
+      - "Build details : %{build_url}"
     on_success: always
     on_failure: always
     use_notice: true
