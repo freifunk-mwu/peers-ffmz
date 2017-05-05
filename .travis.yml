@@ -3,11 +3,11 @@ sudo: required
 dist: xenial
 
 before_install:
- - sudo apt-get install apt-transport-https
- - sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 0x16EF3F64CB201D9C
+ - sudo apt install apt-transport-https libjson-c2
+ - sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys 0x16EF3F64CB201D9C
  - echo "deb https://repo.universe-factory.net/debian/ sid main" | sudo tee -a /etc/apt/sources.list
- - sudo apt-get update
- - sudo apt-get install -y --force-yes fastd
+ - sudo apt update
+ - sudo apt install -y --force-yes fastd
 
 script:
  - ./.verify.sh
