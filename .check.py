@@ -5,7 +5,7 @@ import sys
 import os
 
 exit_code = 0
-key_pattern = re.compile('key\s*"(?P<key>[a-f0-9]{64})";');
+key_pattern = re.compile('key\s*"(?P<key>[A-Fa-f0-9]{64})";');
 
 ANSI_COLOR_ERR = "\x1b[31m"
 ANSI_COLOR_WARN = "\x1b[33m"
